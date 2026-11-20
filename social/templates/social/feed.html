@@ -1,0 +1,5 @@
+{% extends 'base.html' %}{% block content %}<div class="col-md-7 mx-auto">
+<form method="post" class="card card-body mb-3">{% csrf_token %}<textarea name="text" class="form-control mb-2" rows="2" maxlength="500" placeholder="What's on your mind?"></textarea><button class="btn btn-primary align-self-end">Post</button></form>
+<div class="mb-3"><a href="/" class="btn btn-sm {% if not all %}btn-dark{% else %}btn-outline-dark{% endif %}">Following</a>
+<a href="/?all=1" class="btn btn-sm {% if all %}btn-dark{% else %}btn-outline-dark{% endif %}">Everyone</a></div>
+{% for p in posts %}{% include 'social/_post.html' %}{% empty %}<p>No posts yet. Follow people from the People tab!</p>{% endfor %}</div>{% endblock %}

@@ -1,0 +1,6 @@
+{% extends 'base.html' %}{% block content %}<div class="col-md-7 mx-auto">
+<div class="card card-body mb-3"><h3>@{{ u.username }}</h3><p>{{ u.profile.bio|default:"No bio yet" }}</p>
+<p>{{ u.profile.following.count }} following · {{ u.followers.count }} followers · {{ posts.count }} posts</p>
+{% if u == user %}<form method="post" action="{% url 'bio' %}" class="d-flex gap-2">{% csrf_token %}<input name="bio" value="{{ u.profile.bio }}" class="form-control" placeholder="Update bio"><button class="btn btn-dark">Save</button></form>
+{% else %}<a href="{% url 'follow' u.username %}" class="btn {% if is_following %}btn-outline-primary{% else %}btn-primary{% endif %}">{% if is_following %}Unfollow{% else %}Follow{% endif %}</a>{% endif %}</div>
+{% for p in posts %}{% include 'social/_post.html' %}{% endfor %}</div>{% endblock %}
